@@ -1,0 +1,49 @@
+{
+  "name": "json-deep-diff-list",
+  "version": "2.0.0",
+  "description": "Creates an array of two json object diff.",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "json",
+    "deep",
+    "diff",
+    "array",
+    "object",
+    "list",
+    "compare",
+    "jod"
+  ],
+  "author": {
+    "name": "Larry",
+    "email": "larryteal@163.com"
+  },
+  "bugs": {
+    "url": "https://github.com/larryteal/jod/issues"
+  },
+  "homepage": "https://github.com/larryteal/jod",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/larryteal/jod.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "json-key-path-list": "^2.0.0",
+    "lodash.difference": "^4.5.0",
+    "lodash.get": "^4.4.2",
+    "lodash.intersectionwith": "^4.4.0",
+    "lodash.isequal": "^4.5.0",
+    "lodash.merge": "^4.6.2"
+  },
+  "devDependencies": {
+    "@types/lodash.difference": "^4.5.6",
+    "@types/lodash.get": "^4.4.6",
+    "@types/lodash.intersectionwith": "^4.4.6",
+    "@types/lodash.isequal": "^4.5.5",
+    "@types/lodash.merge": "^4.6.6"
+  }
+}
