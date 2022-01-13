@@ -1,4 +1,4 @@
-import { jsonKeyPathList } from 'json-key-path-list';
+import { jsonKeyPathList, KPOptions } from 'json-key-path-list';
 import { KeyPathGroupType, JODOptions } from './interface';
 import _ from './lib/custom-lodash';
 
@@ -21,15 +21,20 @@ const defaultJODOptions: JODOptions = {
 };
 
 export function groupKeyPath (oldObj: any, newObj: any, jodOptions: JODOptions) {
-  const oldKeyPathList = jsonKeyPathList(oldObj, jodOptions.outputDiffKeyPathType);
-  const newKeyPathList = jsonKeyPathList(newObj, jodOptions.outputDiffKeyPathType);
+  const kpOptions: KPOptions = {
+    keyPathType: jodOptions.outputDiffKeyPathType,
+    nodeType: 'leaf'
+  };
+  const oldKeyPathList = jsonKeyPathList(oldObj, kpOptions);
+  const newKeyPathList = jsonKeyPathList(newObj, kpOptions);
   const intersectionKeyPathGroup = _.intersectionWith(oldKeyPathList, newKeyPathList, _.isEqual);
   const deleteKeyPathGroup = _.differenceWith(oldKeyPathList, intersectionKeyPathGroup, _.isEqual);
   const addKeyPathGroup = _.differenceWith(newKeyPathList, intersectionKeyPathGroup, _.isEqual);
   return { intersectionKeyPathGroup, deleteKeyPathGroup, addKeyPathGroup };
 }
 
-export function diffByKeyPathGroup (oldObj: any, newObj: any, keyPathGroup: any[], keyPathGroupType: KeyPathGroupType, jodOptions: JODOptions): any[] {
+export function diffByKeyPathGroup (oldObj: any, newObj: any, keyPathGroup: any[], keyPathGroupType: KeyPathGroupType, options: JODOptions = {}): any[] {
+  const jodOptions: JODOptions = _.merge({}, defaultJODOptions, options);
   const diffList: any[] = [];
   const diffType: string = keyPathGroupType === KEY_PATH_INTERSECTION_GROUP
     ? jodOptions.outputDiffTypeMappings!.replace!
