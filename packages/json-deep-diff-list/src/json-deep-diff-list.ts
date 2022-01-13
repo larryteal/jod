@@ -56,7 +56,7 @@ export function diffByKeyPathGroup (oldObj: any, newObj: any, keyPathGroup: any[
 }
 
 export function jsonDeepDiffList (oldObj: any, newObj: any, options: JODOptions = {}): any[] {
-  const jodOptions: JODOptions = _.merge(defaultJODOptions, options);
+  const jodOptions: JODOptions = _.merge({}, defaultJODOptions, options);
   const { intersectionKeyPathGroup, deleteKeyPathGroup, addKeyPathGroup } = groupKeyPath(oldObj, newObj, jodOptions);
   const diffReplaceList = diffByKeyPathGroup(oldObj, newObj, intersectionKeyPathGroup, 'intersection', jodOptions);
   const diffDeleteList = diffByKeyPathGroup(oldObj, newObj, deleteKeyPathGroup, 'delete', jodOptions);
