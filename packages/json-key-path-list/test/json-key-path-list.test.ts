@@ -1,4 +1,4 @@
-import { jsonKeyPathList, KeyPathType } from '../src';
+import { jsonKeyPathList, KPOptions } from '../src';
 
 describe('test/json-key-path-list.test.ts', () => {
   it('should be correct with normal json data', () => {
@@ -205,7 +205,7 @@ describe('test/json-key-path-list.test.ts', () => {
     expect(jsonKeyPathList(inputData)).toEqual(expectResult);
   });
 
-  it('should be correct when custom output fromat -- array', () => {
+  it('should be correct when custom output fromat -- leaf array', () => {
     const inputData = {
       foo: 'foo',
       bar: {
@@ -224,11 +224,14 @@ describe('test/json-key-path-list.test.ts', () => {
       ['arr', '1'],
       ['arr', '2']
     ];
-    const keyPathType: KeyPathType = 'array';
-    expect(jsonKeyPathList(inputData, keyPathType)).toEqual(expectResult);
+    const options: KPOptions = {
+      keyPathType: 'array',
+      nodeType: 'leaf'
+    };
+    expect(jsonKeyPathList(inputData, options)).toEqual(expectResult);
   });
 
-  it('should be correct when custom output fromat -- string', () => {
+  it('should be correct when custom output fromat -- leaf string', () => {
     const inputData = {
       foo: 'foo',
       bar: {
@@ -247,11 +250,14 @@ describe('test/json-key-path-list.test.ts', () => {
       'arr.1',
       'arr.2'
     ];
-    const keyPathType: KeyPathType = 'string';
-    expect(jsonKeyPathList(inputData, keyPathType)).toEqual(expectResult);
+    const options: KPOptions = {
+      keyPathType: 'string',
+      nodeType: 'leaf'
+    };
+    expect(jsonKeyPathList(inputData, options)).toEqual(expectResult);
   });
 
-  it('should be correct when custom output fromat -- array (special key item)', () => {
+  it('should be correct when custom output fromat -- leaf array (special key item)', () => {
     const inputData = {
       'foo.bar': 'foobar',
       foo: {
@@ -262,11 +268,14 @@ describe('test/json-key-path-list.test.ts', () => {
       ['foo.bar'],
       ['foo', 'bar']
     ];
-    const keyPathType: KeyPathType = 'array';
-    expect(jsonKeyPathList(inputData, keyPathType)).toEqual(expectResult);
+    const options: KPOptions = {
+      keyPathType: 'array',
+      nodeType: 'leaf'
+    };
+    expect(jsonKeyPathList(inputData, options)).toEqual(expectResult);
   });
 
-  it('should be correct when custom output fromat -- string (special key item)', () => {
+  it('should be correct when custom output fromat -- leaf string (special key item)', () => {
     const inputData = {
       'foo.bar': 'foobar',
       foo: {
@@ -277,7 +286,104 @@ describe('test/json-key-path-list.test.ts', () => {
       'foo.bar',
       'foo.bar'
     ];
-    const keyPathType: KeyPathType = 'string';
-    expect(jsonKeyPathList(inputData, keyPathType)).toEqual(expectResult);
+    const options: KPOptions = {
+      keyPathType: 'string',
+      nodeType: 'leaf'
+    };
+    expect(jsonKeyPathList(inputData, options)).toEqual(expectResult);
+  });
+
+  it('should be correct when custom output fromat -- all array', () => {
+    const inputData = {
+      foo: 'foo',
+      bar: {
+        b: 'b',
+        a: 1,
+        r: true
+      },
+      arr: [1, 'a', false]
+    };
+    const expectResult: any = [
+      ['foo'],
+      ['bar'],
+      ['bar', 'b'],
+      ['bar', 'a'],
+      ['bar', 'r'],
+      ['arr'],
+      ['arr', '0'],
+      ['arr', '1'],
+      ['arr', '2']
+    ];
+    const options: KPOptions = {
+      keyPathType: 'array',
+      nodeType: 'all'
+    };
+    expect(jsonKeyPathList(inputData, options)).toEqual(expectResult);
+  });
+
+  it('should be correct when custom output fromat -- all string', () => {
+    const inputData = {
+      foo: 'foo',
+      bar: {
+        b: 'b',
+        a: 1,
+        r: true
+      },
+      arr: [1, 'a', false]
+    };
+    const expectResult: any = [
+      'foo',
+      'bar',
+      'bar.b',
+      'bar.a',
+      'bar.r',
+      'arr',
+      'arr.0',
+      'arr.1',
+      'arr.2'
+    ];
+    const options: KPOptions = {
+      keyPathType: 'string',
+      nodeType: 'all'
+    };
+    expect(jsonKeyPathList(inputData, options)).toEqual(expectResult);
+  });
+
+  it('should be correct when custom output fromat -- all array (special key item)', () => {
+    const inputData = {
+      'foo.bar': 'foobar',
+      foo: {
+        bar: 'bar'
+      }
+    };
+    const expectResult: any = [
+      ['foo.bar'],
+      ['foo'],
+      ['foo', 'bar']
+    ];
+    const options: KPOptions = {
+      keyPathType: 'array',
+      nodeType: 'all'
+    };
+    expect(jsonKeyPathList(inputData, options)).toEqual(expectResult);
+  });
+
+  it('should be correct when custom output fromat -- all string (special key item)', () => {
+    const inputData = {
+      'foo.bar': 'foobar',
+      foo: {
+        bar: 'bar'
+      }
+    };
+    const expectResult: any = [
+      'foo.bar',
+      'foo',
+      'foo.bar'
+    ];
+    const options: KPOptions = {
+      keyPathType: 'string',
+      nodeType: 'all'
+    };
+    expect(jsonKeyPathList(inputData, options)).toEqual(expectResult);
   });
 });
