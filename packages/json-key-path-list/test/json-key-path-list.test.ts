@@ -1,6 +1,6 @@
 import { jsonKeyPathList, KeyPathType } from '../src';
 
-describe('test/jsonKeyPathList.test.ts', () => {
+describe('test/json-key-path-list.test.ts', () => {
   it('should be correct with normal json data', () => {
     const inputData = {
       a: 1,
