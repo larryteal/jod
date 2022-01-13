@@ -1,4 +1,4 @@
-import { jsonKeyPathList } from '../src';
+import { jsonKeyPathList, KeyPathType } from '../src';
 
 describe('test/jsonKeyPathList.test.ts', () => {
   it('should be correct with normal json data', () => {
@@ -125,6 +125,32 @@ describe('test/jsonKeyPathList.test.ts', () => {
     expect(jsonKeyPathList(inputData)).toEqual(expectResult);
   });
 
+  it('should be correct with json mixed sub item Falsy data', () => {
+    const inputData = {
+      a: 0,
+      b: -0,
+      c: false,
+      d: '',
+      e: null,
+      f: undefined,
+      g: NaN,
+      foo: {
+        a: 0,
+        b: -0,
+        c: false,
+        d: '',
+        e: null,
+        f: undefined,
+        g: NaN
+      }
+    };
+    const expectResult: any = [
+      'a', 'b', 'c', 'd', 'e', 'f', 'g',
+      'foo.a', 'foo.b', 'foo.c', 'foo.d', 'foo.e', 'foo.f', 'foo.g'
+    ];
+    expect(jsonKeyPathList(inputData)).toEqual(expectResult);
+  });
+
   it('should be no error with basic type data -- number', () => {
     const inputData = 1;
     const expectResult: any = [];
@@ -155,6 +181,12 @@ describe('test/jsonKeyPathList.test.ts', () => {
     expect(jsonKeyPathList(inputData)).toEqual(expectResult);
   });
 
+  it('should be no error with basic type data -- NaN', () => {
+    const inputData = NaN;
+    const expectResult: any = [];
+    expect(jsonKeyPathList(inputData)).toEqual(expectResult);
+  });
+
   it('should be no error with Object but not JSON object data -- function', () => {
     const inputData = () => {};
     const expectResult: any = [];
@@ -171,5 +203,81 @@ describe('test/jsonKeyPathList.test.ts', () => {
     const inputData: any = [];
     const expectResult: any = [];
     expect(jsonKeyPathList(inputData)).toEqual(expectResult);
+  });
+
+  it('should be correct when custom output fromat -- array', () => {
+    const inputData = {
+      foo: 'foo',
+      bar: {
+        b: 'b',
+        a: 1,
+        r: true
+      },
+      arr: [1, 'a', false]
+    };
+    const expectResult: any = [
+      ['foo'],
+      ['bar', 'b'],
+      ['bar', 'a'],
+      ['bar', 'r'],
+      ['arr', '0'],
+      ['arr', '1'],
+      ['arr', '2']
+    ];
+    const keyPathType: KeyPathType = 'array';
+    expect(jsonKeyPathList(inputData, keyPathType)).toEqual(expectResult);
+  });
+
+  it('should be correct when custom output fromat -- string', () => {
+    const inputData = {
+      foo: 'foo',
+      bar: {
+        b: 'b',
+        a: 1,
+        r: true
+      },
+      arr: [1, 'a', false]
+    };
+    const expectResult: any = [
+      'foo',
+      'bar.b',
+      'bar.a',
+      'bar.r',
+      'arr.0',
+      'arr.1',
+      'arr.2'
+    ];
+    const keyPathType: KeyPathType = 'string';
+    expect(jsonKeyPathList(inputData, keyPathType)).toEqual(expectResult);
+  });
+
+  it('should be correct when custom output fromat -- array (special key item)', () => {
+    const inputData = {
+      'foo.bar': 'foobar',
+      foo: {
+        bar: 'bar'
+      }
+    };
+    const expectResult: any = [
+      ['foo.bar'],
+      ['foo', 'bar']
+    ];
+    const keyPathType: KeyPathType = 'array';
+    expect(jsonKeyPathList(inputData, keyPathType)).toEqual(expectResult);
+  });
+
+  it('should be correct when custom output fromat -- string (special key item)', () => {
+    const inputData = {
+      'foo.bar': 'foobar',
+      foo: {
+        bar: 'bar'
+      }
+    };
+    const expectResult: any = [
+      'foo.bar',
+      'foo.bar'
+    ];
+    const keyPathType: KeyPathType = 'string';
+    expect(jsonKeyPathList(inputData, keyPathType)).toEqual(expectResult);
   });
 });
