@@ -24,8 +24,8 @@ export function groupKeyPath (oldObj: any, newObj: any, jodOptions: JODOptions) 
   const oldKeyPathList = jsonKeyPathList(oldObj, jodOptions.outputDiffKeyPathType);
   const newKeyPathList = jsonKeyPathList(newObj, jodOptions.outputDiffKeyPathType);
   const intersectionKeyPathGroup = _.intersectionWith(oldKeyPathList, newKeyPathList, _.isEqual);
-  const deleteKeyPathGroup = _.difference(oldKeyPathList, intersectionKeyPathGroup);
-  const addKeyPathGroup = _.difference(newKeyPathList, intersectionKeyPathGroup);
+  const deleteKeyPathGroup = _.differenceWith(oldKeyPathList, intersectionKeyPathGroup, _.isEqual);
+  const addKeyPathGroup = _.differenceWith(newKeyPathList, intersectionKeyPathGroup, _.isEqual);
   return { intersectionKeyPathGroup, deleteKeyPathGroup, addKeyPathGroup };
 }
 
