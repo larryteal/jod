@@ -10,3 +10,4 @@ test/
 package-lock.json
 tsconfig.json
 *.md
+jest.config.js

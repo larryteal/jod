@@ -1,6 +1,6 @@
 {
   "name": "json-key-path-list",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Creates an array of the own key paths of `object`",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
