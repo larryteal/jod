@@ -20,9 +20,9 @@ const defaultJODOptions: JODOptions = {
   outputDiffKeyPathType: 'string'
 };
 
-export function groupKeyPath (oldObj: any, newObj: any, jodOptions: JODOptions) {
+export function groupKeyPath (oldObj: any, newObj: any, keyPathType: 'string' | 'array' = 'string') {
   const kpOptions: KPOptions = {
-    keyPathType: jodOptions.outputDiffKeyPathType,
+    keyPathType,
     nodeType: 'leaf'
   };
   const oldKeyPathList = jsonKeyPathList(oldObj, kpOptions);
@@ -62,7 +62,7 @@ export function diffByKeyPathGroup (oldObj: any, newObj: any, keyPathGroup: any[
 
 export function jsonDeepDiffList (oldObj: any, newObj: any, options: JODOptions = {}): any[] {
   const jodOptions: JODOptions = _.merge({}, defaultJODOptions, options);
-  const { intersectionKeyPathGroup, deleteKeyPathGroup, addKeyPathGroup } = groupKeyPath(oldObj, newObj, jodOptions);
+  const { intersectionKeyPathGroup, deleteKeyPathGroup, addKeyPathGroup } = groupKeyPath(oldObj, newObj, jodOptions.outputDiffKeyPathType);
   const diffReplaceList = diffByKeyPathGroup(oldObj, newObj, intersectionKeyPathGroup, 'intersection', jodOptions);
   const diffDeleteList = diffByKeyPathGroup(oldObj, newObj, deleteKeyPathGroup, 'delete', jodOptions);
   const diffAddList = diffByKeyPathGroup(oldObj, newObj, addKeyPathGroup, 'add', jodOptions);

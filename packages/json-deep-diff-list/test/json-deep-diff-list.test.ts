@@ -438,7 +438,7 @@ describe('test/json-deep-diff-list.test.ts -- groupKeyPath', () => {
       deleteKeyPathGroup: ['car', 'cc.car'],
       addKeyPathGroup: ['xa', 'cc.xa']
     };
-    expect(groupKeyPath(oldObj, newObj, {})).toEqual(expectResult);
+    expect(groupKeyPath(oldObj, newObj)).toEqual(expectResult);
   });
 
   it('should be correct with json data and custom output format -- string', () => {
@@ -467,7 +467,7 @@ describe('test/json-deep-diff-list.test.ts -- groupKeyPath', () => {
       deleteKeyPathGroup: ['car', 'cc.car'],
       addKeyPathGroup: ['xa', 'cc.xa']
     };
-    expect(groupKeyPath(oldObj, newObj, { outputDiffKeyPathType: 'string' })).toEqual(expectResult);
+    expect(groupKeyPath(oldObj, newObj, 'string')).toEqual(expectResult);
   });
 
   it('should be correct with json data and custom output format -- array', () => {
@@ -496,11 +496,11 @@ describe('test/json-deep-diff-list.test.ts -- groupKeyPath', () => {
       deleteKeyPathGroup: [['car'], ['cc', 'car']],
       addKeyPathGroup: [['xa'], ['cc', 'xa']]
     };
-    expect(groupKeyPath(oldObj, newObj, { outputDiffKeyPathType: 'array' })).toEqual(expectResult);
+    expect(groupKeyPath(oldObj, newObj, 'array')).toEqual(expectResult);
   });
 });
 
-describe('test/json-deep-diff-list.test.ts -- groupKeyPath', () => {
+describe('test/json-deep-diff-list.test.ts -- diffByKeyPathGroup', () => {
   it('should be correct with json data -- intersection group', () => {
     const oldObj = {
       foo: 'foo',
@@ -591,7 +591,6 @@ describe('test/json-deep-diff-list.test.ts -- groupKeyPath', () => {
     expect(diffByKeyPathGroup(oldObj, newObj, addKeyPathGroup, 'add', options)).toEqual(expectResult);
   });
 
-  //
   it('should be correct with json data -- intersection group and array key path', () => {
     const oldObj = {
       foo: 'foo',
