@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/larryteal/jod/issues"
   },
-  "homepage": "https://github.com/larryteal/jod",
+  "homepage": "https://github.com/larryteal/jod/tree/master/packages/json-deep-diff-list",
   "repository": {
     "type": "git",
     "url": "https://github.com/larryteal/jod.git"
