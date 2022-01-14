@@ -91,3 +91,22 @@ const keyPaths = jsonKeyPathList(data, options);
 console.log(keyPaths);
 // [ [ 'foo' ], [ 'bar' ], [ 'cc', 'foo' ], [ 'cc', 'bar' ] ]
 ```
+
+## Pay attention to the output format
+If you are not sure if there is a special key, it is better to use the output in `array` format
+```ts
+import { jsonKeyPathList } from 'json-key-path-list';
+
+const data = { 'foo.bar': 'foobar', foo: { bar: 'foobar' } };
+const options: KPOptions = { keyPathType: 'array' };
+let keyPaths = jsonKeyPathList(data, options);
+console.log(keyPaths);
+// [ [ 'foo.bar' ], [ 'foo', 'bar' ] ]
+
+options.keyPathType = 'string';
+keyPaths = jsonKeyPathList(data, options);
+console.log(keyPaths);
+// [ 'foo.bar', 'foo.bar' ]
+``` 
+
+# Good luck
