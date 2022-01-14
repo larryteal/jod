@@ -26,7 +26,7 @@ Creates an array of the own key paths of `Object` or `Array`.
   [ 'foo', 'bar', 'cc', 'cc.foo', 'cc.bar' ]
 
   // Array
-  [ [ 'foo' ], [ 'bar' ], [ 'cc', 'foo' ], [ 'cc', 'bar' ] ]
+  [ [ 'foo' ], [ 'bar' ], ['cc'], [ 'cc', 'foo' ], [ 'cc', 'bar' ] ]
   ```
 
 # Install
@@ -89,7 +89,7 @@ const options: KPOptions = {
 const keyPaths = jsonKeyPathList(data, options);
 
 console.log(keyPaths);
-// [ [ 'foo' ], [ 'bar' ], [ 'cc', 'foo' ], [ 'cc', 'bar' ] ]
+// [ [ 'foo' ], [ 'bar' ], ['cc'], [ 'cc', 'foo' ], [ 'cc', 'bar' ] ]
 ```
 
 ## Pay attention to the output format
