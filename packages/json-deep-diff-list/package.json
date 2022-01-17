@@ -1,6 +1,6 @@
 {
   "name": "json-deep-diff-list",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Creates an array of two json object diff.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
