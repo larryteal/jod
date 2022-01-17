@@ -1,12 +1,12 @@
-import intersectionWith from 'lodash.intersectionwith';
-import differenceWith from 'lodash.differencewith';
+import intersection from 'lodash.intersection';
+import difference from 'lodash.difference';
 import get from 'lodash.get';
 import isEqual from 'lodash.isequal';
 import merge from 'lodash.merge';
 
 export default {
-  intersectionWith,
-  differenceWith,
+  intersection,
+  difference,
   get,
   isEqual,
   merge

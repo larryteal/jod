@@ -25,11 +25,21 @@ export function groupKeyPath (oldObj: any, newObj: any, keyPathType: 'string' | 
     keyPathType,
     nodeType: 'leaf'
   };
-  const oldKeyPathList = jsonKeyPathList(oldObj, kpOptions);
-  const newKeyPathList = jsonKeyPathList(newObj, kpOptions);
-  const intersectionKeyPathGroup = _.intersectionWith(oldKeyPathList, newKeyPathList, _.isEqual);
-  const deleteKeyPathGroup = _.differenceWith(oldKeyPathList, intersectionKeyPathGroup, _.isEqual);
-  const addKeyPathGroup = _.differenceWith(newKeyPathList, intersectionKeyPathGroup, _.isEqual);
+  let oldKeyPathList = jsonKeyPathList(oldObj, kpOptions);
+  let newKeyPathList = jsonKeyPathList(newObj, kpOptions);
+  if (keyPathType === 'array') {
+    oldKeyPathList = oldKeyPathList.map((value) => JSON.stringify(value));
+    newKeyPathList = newKeyPathList.map((value) => JSON.stringify(value));
+  }
+  let intersectionKeyPathGroup = _.intersection(oldKeyPathList, newKeyPathList);
+  let deleteKeyPathGroup = _.difference(oldKeyPathList, intersectionKeyPathGroup);
+  let addKeyPathGroup = _.difference(newKeyPathList, intersectionKeyPathGroup);
+  if (keyPathType === 'array') {
+    intersectionKeyPathGroup = intersectionKeyPathGroup.map((value) => JSON.parse(value));
+    deleteKeyPathGroup = deleteKeyPathGroup.map((value) => JSON.parse(value));
+    addKeyPathGroup = addKeyPathGroup.map((value) => JSON.parse(value));
+  }
+
   return { intersectionKeyPathGroup, deleteKeyPathGroup, addKeyPathGroup };
 }
 
