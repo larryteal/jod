@@ -1,0 +1,30 @@
+{
+  "name": "intersection-difference",
+  "version": "1.0.0",
+  "description": "intersection and difference",
+  "keywords": [
+    "intersection",
+    "difference"
+  ],
+  "author": "Larry <larryteal@163.com>",
+  "homepage": "https://github.com/larryteal/jod/tree/main/packages/intersection-difference",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larryteal/jod.git"
+  },
+  "bugs": {
+    "url": "https://github.com/larryteal/jod/issues"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "jest": "^27.4.7",
+    "ts-jest": "^27.1.2"
+  }
+}
