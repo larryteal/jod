@@ -17,3 +17,16 @@ console.log(result);
 // The last string array in result is the intersection, 
 // the others are the difference between each set and the intersection
 ```
+
+```ts
+import { intersectionAndDifference } from 'intersection-difference';
+// const { intersectionAndDifference } = require('intersection-difference');
+
+const setA = new Set(['aa', 'bb', 'cc', 'dd']);
+const setB = new Set(['cc', 'dd', 'ee', 'ff']);
+const result = intersectionAndDifference(setA, setB);
+console.log(result);
+// [['aa', 'bb'], ['ee', 'ff'], ['cc', 'dd']]
+// The last string array in result is the intersection, 
+// the others are the difference between each set and the intersection
+```

@@ -1,4 +1,4 @@
-export function intersectionAndDifference (...arrays: Array<Array<string>>): Array<Array<string>> {
+export function intersectionAndDifference (...arrays: Array<Array<string>| Set<string>>): Array<Array<string>> {
   const keySet: any = {};
   const result: Array<Array<string>> = [];
   let intersectionValue = 0;

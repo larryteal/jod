@@ -42,4 +42,11 @@ describe('test/intersection-difference.test.ts', () => {
     const expectResult: string[][] = [['aa', 'bb'], ['ee', 'ff'], ['gg', 'hh'], ['cc', 'dd']];
     expect(intersectionAndDifference(setA, setB, setC)).toEqual(expectResult);
   });
+
+  it('should be correct with 2 string sets', () => {
+    const setA = new Set(['aa', 'bb', 'cc', 'dd']);
+    const setB = new Set(['cc', 'dd', 'ee', 'ff']);
+    const expectResult: string[][] = [['aa', 'bb'], ['ee', 'ff'], ['cc', 'dd']];
+    expect(intersectionAndDifference(setA, setB)).toEqual(expectResult);
+  });
 });
